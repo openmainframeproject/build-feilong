@@ -1,0 +1,17 @@
+# Copyright 2024 Contributors to the Open Mainframe Project.
+
+workflow:
+  steps:
+    - trigger_services:
+        project: Virtualization:feilong
+        package: zthin_deb
+        package: zthin_rhel
+        package: zthin_sles
+        package: zvmsdk_deb
+        package: zvmsdk_rhel
+        package: zvmsdk_sles
+  filters:
+    branches:
+      only:
+        - master
+    event: push

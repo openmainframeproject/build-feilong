@@ -1,0 +1,16 @@
+smcli.1.gz /usr/share/man/man1/
+smcli /opt/zthin/bin/
+ckddecode /opt/zthin/bin/
+ckdencode /opt/zthin/bin/
+ckdhex /opt/zthin/bin/
+syncfileutil /opt/zthin/bin/
+config/tracing.conf /var/opt/zthin/
+config/settings.conf /opt/zthin/
+config/zthin.conf /etc/ld.so.conf.d/
+zthin/lib/* /opt/zthin/lib/
+libzthin.so /opt/zthin/lib/
+zthinlogs /var/opt/zthin/
+zthin/bin/* /opt/zthin/bin/
+iucvclnt /opt/zthin/bin/IUCV/
+iucvserv /opt/zthin/bin/IUCV/
+zthin/bin/IUCV/iucvserd /opt/zthin/bin/IUCV/

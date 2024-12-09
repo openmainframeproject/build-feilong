@@ -1,0 +1,18 @@
+#!/bin/sh
+# Copyright 2024 Contributors to the Open Mainframe Project.
+
+REPO=https://github.com/openmainframeproject/feilong
+REPOTOP=feilong
+ZTHINTOP=zthin-parts
+
+# Clone the repository
+git clone $REPO
+# Change to the cloned directory
+cd $REPOTOP
+
+# Copy files to the build directory with error handling
+echo "Attempting to copy zthinlogs to $ZTHINTOP:"
+cp ../zthinlogs $ZTHINTOP/ || { echo "Failed to copy zthinlogs"; exit 1; }
+
+# Create the tarball
+tar czf zthin-build.tar.gz $ZTHINTOP

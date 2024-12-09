@@ -1,0 +1,43 @@
+#!/bin/bash
+
+set -e
+
+/usr/bin/getent passwd zvmsdk >/dev/null || /usr/sbin/useradd -r -d /var/lib/zvmsdk -m -U zvmsdk -s /bin/bash 2>/dev/null 1>&2
+
+mkdir -p /var/log/zvmsdk
+chown zvmsdk /var/log/zvmsdk
+chgrp zvmsdk /var/log/zvmsdk
+chmod 0755 /var/log/zvmsdk
+
+mkdir -p /etc/zvmsdk
+chown zvmsdk /etc/zvmsdk
+chgrp zvmsdk /etc/zvmsdk
+chmod 0755 /etc/zvmsdk
+
+mkdir -p /var/lib/zvmsdk
+chown zvmsdk /var/lib/zvmsdk
+chgrp zvmsdk /var/lib/zvmsdk
+chmod 0755 /var/lib/zvmsdk
+
+chown zvmsdk /var/lib/zvmsdk/setupDisk
+chgrp zvmsdk /var/lib/zvmsdk/setupDisk
+
+chown zvmsdk /etc/zvmsdk/*
+chgrp zvmsdk /etc/zvmsdk/*
+
+if [ ! -f "/etc/logrotate.d/zvmsdklogs" ]; then
+    cp /var/opt/zvmsdk/zvmsdklogs /etc/logrotate.d
+fi
+
+# call zvmsdk-gentoken to create init token
+if [ ! -f "/etc/zvmsdk/token.dat" ]; then
+  zvmsdk-gentoken
+  chown zvmsdk /etc/zvmsdk/token.dat
+  chgrp zvmsdk /etc/zvmsdk/token.dat
+  chmod 0600 /etc/zvmsdk/token.dat
+else
+  echo "Token file already exists"
+fi
+
+#enable site for apache2
+a2ensite zvmsdk 

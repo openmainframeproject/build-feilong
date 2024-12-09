@@ -1,0 +1,18 @@
+echo "******************Start to build zvmsdk rpm package******************"
+
+bash ${WORKSPACE}/buildzvmsdkrpm_rhel master
+
+echo "******************start to copy zvmsdk rpm to latest directory******************"
+ssh root@9.60.18.169 rm -fr /var/ftp/zvmcloudconnector/zvmsdk*.rpm
+ssh root@9.60.18.169 rm -fr /var/ftp/zvmcloudconnector/zthin*.rpm
+
+scp /root/rpmbuild/RPMS/noarch/* root@9.60.18.169:/var/ftp/zvmcloudconnector/
+
+echo "******************Start to build zthin rpm package******************"
+bash ${WORKSPACE}/buildzthinrpm_rhel master
+
+echo "******************start to copy zthin rpm to latest directory******************"
+scp /root/zthin-build/RPMS/s390x/* root@9.60.18.169:/var/ftp/zvmcloudconnector/
+
+echo "******************create repo*********************"
+ssh root@9.60.18.169 createrepo /var/ftp/zvmcloudconnector 
