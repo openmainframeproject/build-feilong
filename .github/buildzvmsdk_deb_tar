@@ -1,0 +1,54 @@
+#!/bin/sh
+# Copyright 2024 Contributors to the Open Mainframe Project.
+
+REPO=https://github.com/openmainframeproject/feilong
+REPOTOP=feilong
+ZTHIN=zthin-parts
+
+git clone $REPO
+cd $REPOTOP/$ZTHIN
+
+mkdir -p debian
+
+# Copy files with error handling
+echo "Attempting to copy zvmsdklogs to $REPOTOP:"
+cp ../../zthinlogs . || { echo "Failed to copy zvmsdklogs"; exit 1; }
+cp -r ../../zthindeb/* debian/ || { echo "Failed to copy files to debian directory"; exit 1; }
+
+# start the real debian build
+dpkg-buildpackage -S
+#!/bin/sh
+# Copyright 2017 IBM Corp.
+# Copyright 2024 Contributors to the Open Mainframe Project.
+#
+#    Licensed under the Apache License, Version 2.0 (the "License"); you may
+#    not use this file except in compliance with the License. You may obtain
+#    a copy of the License at
+#
+#         http://www.apache.org/licenses/LICENSE-2.0
+#
+#    Unless required by applicable law or agreed to in writing, software
+#    distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+#    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+#    License for the specific language governing permissions and limitations
+#    under the License.
+#
+#------------------------------------------------------------------------------
+
+REPO=https://github.com/openmainframeproject/feilong
+REPOTOP=feilong
+
+# Clone the repository
+git clone $REPO
+cd $REPOTOP || { echo "Failed to change directory to $REPOTOP"; exit 1; }
+
+mkdir -p debian || { echo "Failed to create debian directory"; exit 1; }
+
+# Copy files with error handling
+echo "Attempting to copy zvmsdklogs to $REPOTOP:"
+cp ../zvmsdklogs . || { echo "Failed to copy zvmsdklogs"; exit 1; }
+cp ../vhost_deb.config . || { echo "Failed to copy vhost_deb"; exit 1; }
+cp -r ../sdkdeb/* debian/ || { echo "Failed to copy files to debian directory"; exit 1; }
+
+# Build the package
+dpkg-buildpackage -S

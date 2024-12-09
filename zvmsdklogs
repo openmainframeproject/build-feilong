@@ -1,0 +1,10 @@
+/var/log/zvmsdk/*.log {
+    compress
+    dateext
+    dateformat -%Y-%m-%d-%s
+    rotate 4
+    copytruncate
+    size=50M
+    notifempty
+    missingok
+}

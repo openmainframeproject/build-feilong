@@ -1,0 +1,56 @@
+#!/bin/sh
+# Copyright 2017 IBM Corp.
+# Copyright 2024 Contributors to the Open Mainframe Project.
+#
+#    Licensed under the Apache License, Version 2.0 (the "License"); you may
+#    not use this file except in compliance with the License. You may obtain
+#    a copy of the License at
+#
+#         http://www.apache.org/licenses/LICENSE-2.0
+#
+#    Unless required by applicable law or agreed to in writing, software
+#    distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+#    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+#    License for the specific language governing permissions and limitations
+#    under the License.
+#
+#------------------------------------------------------------------------------
+
+# Build debian pacakge script for zvm sdk
+if [[ -z "$1" ]]; then
+   {
+   echo "A branch must be specified"
+   exit 1
+   }
+fi
+
+BRANCH=$1
+REPO=https://github.com/openmainframeproject/feilong
+REPOTOP=feilong
+
+# Check whether the repo exist or not
+EXISTS=$(git ls-remote -h $REPO | grep "$BRANCH"$ | wc -l )
+if [ "$EXISTS" == 0 ] ; then
+{
+  echo "Branch $BRANCH does not exist on openmainframeproject/feilong"
+  echo "Try choosing one of the following branches:  "
+  git ls-remote --heads $REPO | awk -F "heads/" '{print $2}'
+  exit 1
+  }
+fi
+
+# Checkout the branch
+echo "===>Erasing old $REPOTOP, then cloning: $REPO -b $BRANCH"
+rm -rf ./$REPOTOP
+git clone $REPO -b $BRANCH
+
+# make debian folder and copy all stuffs to that folder
+mkdir $REPOTOP/debian
+cp zvmsdklogs $REPOTOP/
+cp sdkdeb/* $REPOTOP/debian
+cp vhost_deb.config $REPOTOP/
+
+# Enter build folder and build
+cd $REPOTOP
+dpkg-buildpackage -uc -us
+

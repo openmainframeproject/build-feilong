@@ -1,0 +1,30 @@
+#!/bin/bash
+
+set -e
+
+chmod 755 /opt/zthin/bin/*
+chmod 755 /opt/zthin/bin/IUCV/iucvserd
+chmod 755 /opt/zthin/bin/IUCV/iucvclnt
+chmod 755 /opt/zthin/bin/IUCV/iucvserv
+chmod 755 /opt/zthin/lib/zthinshellutils
+
+ln -sfd /opt/zthin/bin/smcli /usr/bin/smcli
+
+mkdir -p /var/log/zthin
+touch /var/log/zthin/zthin.log
+
+# syslog located in different directories in Red Hat/SUSE
+ZTHIN_LOG_HEADER="# Logging for SDK zThin"
+ZTHIN_LOG="/var/log/zthin/zthin.log"
+echo "Configuring syslog"
+
+grep ${ZTHIN_LOG} /etc/rsyslog.conf > /dev/null || (echo -e "\n${ZTHIN_LOG_HEADER}\nlocal5.*        ${ZTHIN_LOG}" >> /etc/rsyslog.conf)
+
+cp /var/opt/zthin/zthinlogs /etc/logrotate.d
+systemctl restart rsyslog
+
+echo "/opt/zthin/lib" > /etc/ld.so.conf.d/zthin.conf
+
+# make ld take effect
+/sbin/ldconfig
+

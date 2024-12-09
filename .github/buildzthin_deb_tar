@@ -1,0 +1,19 @@
+#!/bin/sh
+# Copyright 2024 Contributors to the Open Mainframe Project.
+
+REPO=https://github.com/openmainframeproject/feilong
+REPOTOP=feilong
+ZTHIN=zthin-parts
+
+git clone $REPO
+cd $REPOTOP/$ZTHIN
+
+mkdir -p debian
+
+# Copy files with error handling
+echo "Attempting to copy zvmsdklogs to $REPOTOP:"
+cp ../../zthinlogs . || { echo "Failed to copy zvmsdklogs"; exit 1; }
+cp -r ../../zthindeb/* debian/ || { echo "Failed to copy files to debian directory"; exit 1; }
+
+# start the real debian build
+dpkg-buildpackage -S

@@ -1,0 +1,28 @@
+#!/usr/bin/make -f
+# See debhelper(7) (uncomment to enable)
+# output every command that modifies files on the build system.
+#export DH_VERBOSE = 1
+
+include /usr/share/python3/python.mk
+
+export DH_VERBOSE = 1
+export PYBUILD_NAME=zvm-sdk
+export DEB_BUILD_OPTIONS=nocheck
+export RPM_BUILD_ROOT=$HOME
+
+%:
+	dh $@  --with python3 --buildsystem=pybuild
+
+
+override_dh_auto_build:
+	dh_auto_build
+
+override_dh_install:
+	# rm -rf $(CURDIR)/debian/tmp
+	python3 setup.py install -f --install-layout=deb --root=$(CURDIR)/debian/zvmsdk
+	PYTHONPATH=$(CURDIR)/debian/tmp/usr/lib/python3.12/dist-packages
+	mkdir -p $(CURDIR)/debian/zvmsdk/var/opt/zvmsdk
+	cp zvmsdklogs $(CURDIR)/debian/zvmsdk/var/opt/zvmsdk/
+	mkdir -p $(CURDIR)/debian/zvmsdk/etc/apache2/sites-available/
+	cp vhost_deb.config $(CURDIR)/debian/zvmsdk/etc/apache2/sites-available/zvmsdk.conf
+

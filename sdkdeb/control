@@ -1,0 +1,34 @@
+Source: zvmsdk
+Section: libs
+Priority: optional
+Maintainer: jichen <jichenjc@cn.ibm.com>
+Build-Depends: debhelper (>=12), dh-python, python3-all,  python3-setuptools
+Standards-Version: 3.12.3
+# FIXME: switch to IBM home page later
+Homepage: http://cloudlib4zvm.readthedocs.io
+X-Python-Version: >= 3.12.3
+
+Package: zvmsdk
+Architecture: all
+# Suggests: zvmsdk-doc
+Depends: python3 (>= 3.12), python3-netaddr (>= 0.7.5), python3-jwt(>= 1.0.1), python3-mock, python3-requests(>= 2.6.0), python3-routes(>= 2.2), python3-webob(>= 1.2.3), python3-jsonschema(>= 2.3.0), python3-six(>= 1.9.0), python3-jinja2, zthin (>= 3.1.0), apache2, libapache2-mod-wsgi-py3
+Description: z/VM cloud connector
+ The System z/VM cloud connector is a set of APIs to be used
+ by external API consumer.
+
+
+# Package: zvmsdk
+# Architecture: all
+# Suggests: zvmsdk-doc
+# Description: <insert up to 60 chars description> (Python 3)
+# <insert long description, indented with spaces>
+#  .
+# This package installs the library for Python 3.
+
+# Package: zvmsdk-doc
+# Architecture: all
+# Section: doc
+# Description: <insert up to 60 chars description> (common documentation)
+# <insert long description, indented with spaces>
+#  .
+# This is the common documentation package.

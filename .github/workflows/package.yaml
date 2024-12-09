@@ -1,0 +1,121 @@
+# Copyright 2024 Contributors to the Open Mainframe Project.
+
+name: Package Feilong
+
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types: [obs-package]
+
+jobs:
+  zthin_tarball:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out build-zvmsdk repository
+        uses: actions/checkout@v4
+
+      - name: Make buildzthin_tar executable
+        run: chmod +x ./.github/buildzthin_tar
+
+      - name: Run buildzthin_tar script
+        run: ./.github/buildzthin_tar master
+
+      - name: Upload zthin tarball artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: zthin-tarball
+          path: feilong/zthin-build.tar.gz
+          compression-level: 0
+
+  zvmsdk_tarball:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out build-zvmsdk repository
+        uses: actions/checkout@v4
+
+      - name: Make buildzvmsdk_tar executable
+        run: chmod +x ./.github/buildzvmsdk_tar
+
+      - name: Run buildzvmsdk_tar script
+        run: ./.github/buildzvmsdk_tar master
+
+      - name: Upload zvmsdk RPM artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: zvmsdk-tarball
+          path: zvmsdk.tar.gz
+          compression-level: 0 # no compression
+
+  zthin_deb_tarball:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out build-zvmsdk repository
+        uses: actions/checkout@v4
+
+      - name: Set up dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y debhelper dh-make dh-python python3-all
+      - name: Make buildzthin_deb_tar executable
+        run: chmod +x ./.github/buildzthin_deb_tar
+
+
+      - name: Run buildzthin_deb_tar script
+        run: ./.github/buildzthin_deb_tar master
+
+      - name: Upload zthin RPM artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: zthin-deb-tarball
+          path: |
+            feilong/zthin_3.1.2.tar.gz
+            feilong/zthin_3.1.2.dsc
+          compression-level: 0
+
+  zvmsdk_deb_tarball:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out build-zvmsdk repository
+        uses: actions/checkout@v4
+
+      - name: Set up dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y debhelper dh-make dh-python python3-all
+      - name: Make buildzvmsdk_deb_tar executable
+        run: chmod +x ./.github/buildzvmsdk_deb_tar
+
+      - name: Run buildzvmsdk_deb_tar script
+        run: ./.github/buildzvmsdk_deb_tar master
+
+      - name: Upload zvmsdk RPM artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: zvmsdk-deb-tarball
+          path: |
+            zvmsdk_1.4.0.dsc
+            zvmsdk_1.4.0.tar.gz
+          compression-level: 0
+
+  push_artifacts:
+    needs: [ zthin_tarball, zvmsdk_tarball, zthin_deb_tarball, zvmsdk_deb_tarball ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out build-zvmsdk repository
+        uses: actions/checkout@v4
+
+      - name: Download tarballs from artifact
+        uses: actions/download-artifact@v4
+        with:
+          path: obs-artifacts
+          merge-multiple: true
+      - run: ls -R obs-artifacts
+
+      - name: Push  to the repository
+        run: |
+          cd obs-artifacts
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "Updated tarballs "
+          git push

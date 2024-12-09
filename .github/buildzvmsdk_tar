@@ -1,0 +1,19 @@
+#!/bin/sh
+# Copyright 2024 Contributors to the Open Mainframe Project.
+
+REPO=https://github.com/openmainframeproject/feilong
+REPOTOP=feilong
+SDK=zvmsdk
+
+# Clone the repository
+git clone $REPO
+# Change to the cloned directory
+cd $REPOTOP
+
+# Copy files to the build directory with error handling
+echo "Attempting to copy zvmsdklogs to $REPOTOP:"
+cp ../zvmsdklogs . || { echo "Failed to copy zvmsdklogs"; exit 1; }
+
+# Create the tarball
+cd ..
+tar czf zvmsdk.tar.gz --exclude "$REPOTOP/.git" --exclude "$REPOTOP/zthin-parts" $REPOTOP

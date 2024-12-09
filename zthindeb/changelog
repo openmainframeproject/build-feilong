@@ -1,0 +1,18 @@
+zthin (3.1.2) stable; urgency=medium
+
+  * Bug fix
+
+ -- jichen <jichen@cn.ibm.com>  Mon, 10 Dec 2018 10:43:15 +0800
+
+zthin (3.1.1) stable; urgency=medium
+
+  * Bug fix
+  * Changes to adopt SMAPI changes
+
+ -- jichen <jichen@cn.ibm.com>  Tue, 03 Apr 2018 15:43:15 +0800
+
+zthin (3.1.0-1) unstable; urgency=medium
+
+  * Initial release (Closes: #nnnn)  <nnnn is the bug number of your ITP>
+
+ -- jichen <jichen@cn.ibm.com>  Thu, 07 Dec 2017 10:39:22 +0800

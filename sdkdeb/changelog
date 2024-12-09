@@ -1,0 +1,21 @@
+zvmsdk (1.4.0) stable; urgency=medium
+
+  * Bug fix
+  * Live resize support
+  * Volume attach support
+
+ -- jichen <jichen@cn.ibm.com>  Tue, 04 Dec 2018 15:43:15 +0800
+
+zvmsdk (1.0.1) stable; urgency=medium
+
+  * Bug fix
+  * Changes to adopt SMAPI changes 
+
+ -- jichen <jichen@cn.ibm.com>  Tue, 03 Apr 2018 15:43:15 +0800
+
+zvmsdk (1.0.0) stable; urgency=medium
+
+  * Initial release
+
+ -- jichen <jichen@cn.ibm.com>  Tue, 08 Jan 2018 15:43:15 +0800
+

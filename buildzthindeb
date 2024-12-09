@@ -1,0 +1,65 @@
+#!/bin/sh
+# Copyright 2017 IBM Corp.
+# Copyright 2024 Contributors to the Open Mainframe Project.
+#
+#    Licensed under the Apache License, Version 2.0 (the "License"); you may
+#    not use this file except in compliance with the License. You may obtain
+#    a copy of the License at
+#
+#         http://www.apache.org/licenses/LICENSE-2.0
+#
+#    Unless required by applicable law or agreed to in writing, software
+#    distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+#    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+#    License for the specific language governing permissions and limitations
+#    under the License.
+#
+#------------------------------------------------------------------------------
+
+# build scripts for zthin ubuntu
+
+# Check whether branch is given
+if [[ -z "$1" ]]; then
+   {
+   echo "A branch must be specified"
+   exit 1
+   }
+fi
+
+BRANCH=$1
+
+# copy from
+REPO=https://github.com/openmainframeproject/feilong
+REPOTOP=feilong
+ZTHIN=zthin-parts
+
+# real copy
+EXISTS=$(git ls-remote -h $REPO | grep "$BRANCH"$ | wc -l )
+if [ "$EXISTS" == 0 ] ; then
+  {
+  echo "Branch $BRANCH does not exist on $REPO"
+  echo "Try choosing one of the following branches:  "
+  git ls-remote --heads $REPO | awk -F "heads/" '{print $2}'
+  exit 1
+  }
+fi
+
+echo "===>Erasing old $REPOTOP, then cloning: $REPO -b $BRANCH"
+
+# Remove old stuffs and create a new one
+rm -rf ./$REPOTOP
+git clone $REPO -b $BRANCH
+
+# make dir, currently it's ./python-zvm-sdk/zthin-parts/debian
+mkdir $REPOTOP/$ZTHIN/debian
+
+# copy all pre-created debian build files into build dir
+# zthinlogs is used for log rotate
+cp -r zthindeb/* $REPOTOP/$ZTHIN/debian
+cp ./zthinlogs $REPOTOP/$ZTHIN
+
+# Enter build directory, it's ./feilong/zthin-parts
+cd $REPOTOP/$ZTHIN
+
+# start the real debian build
+dpkg-buildpackage -uc -us

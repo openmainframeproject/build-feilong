@@ -1,0 +1,26 @@
+echo "******************Start to build zvmsdk deb package******************"
+
+bash ${WORKSPACE}/buildzvmsdkdeb master
+
+echo "******************start to copy zvmsdk rpm to latest directory******************"
+
+echo "******************Start to build zthin rpm package******************"
+bash ${WORKSPACE}/buildzthindeb master
+
+echo "******************start to copy zthin rpm to latest directory******************"
+deb_repo_root='/srv/ftp/zvmcloudconnector_deb'
+cd $deb_repo_root
+# Clear old package from repo
+reprepro remove zvmsdk zthin &> /dev/null
+reprepro remove zvmsdk zvmsddk &> /dev/null
+rm -f $deb_repo_root/packages/*.deb
+# Copy new deb packages
+cp ${WORKSPACE}/*.deb $deb_repo_root/packages/
+cp ${WORKSPACE}/zvmsddk/*.deb $deb_repo_root/packages/
+# Add new packages to repo
+for p in `ls $deb_repo_root/packages/`
+do
+    echo "Including $p into zvmsdk repo"
+    reprepro includedeb zvmsdk $deb_repo_root/packages/$p
+done
+
