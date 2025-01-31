@@ -1,6 +1,6 @@
 # Copyright 2024 Contributors to the Open Mainframe Project.
 
-name: Package Feilong
+name: Prepare package build artifacts for OBS Feilong build
 
 on:
   workflow_dispatch:
@@ -20,7 +20,7 @@ jobs:
       - name: Run buildzthin_tar script
         run: ./.github/buildzthin_tar master
 
-      - name: Upload zthin tarball artifact
+      - name: Upload zthin RPM package build artifact
         uses: actions/upload-artifact@v4
         with:
           name: zthin-tarball
@@ -39,7 +39,7 @@ jobs:
       - name: Run buildzvmsdk_tar script
         run: ./.github/buildzvmsdk_tar master
 
-      - name: Upload zvmsdk RPM artifact
+      - name: Upload zvmsdk RPM package build artifact
         uses: actions/upload-artifact@v4
         with:
           name: zvmsdk-tarball
@@ -56,14 +56,14 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y debhelper dh-make dh-python python3-all
+      
       - name: Make buildzthin_deb_tar executable
         run: chmod +x ./.github/buildzthin_deb_tar
-
 
       - name: Run buildzthin_deb_tar script
         run: ./.github/buildzthin_deb_tar master
 
-      - name: Upload zthin RPM artifact
+      - name: Upload zthin DEB package build artifacts
         uses: actions/upload-artifact@v4
         with:
           name: zthin-deb-tarball
@@ -88,7 +88,7 @@ jobs:
       - name: Run buildzvmsdk_deb_tar script
         run: ./.github/buildzvmsdk_deb_tar master
 
-      - name: Upload zvmsdk RPM artifact
+      - name: Upload zvmsdk DEB package build artifacts
         uses: actions/upload-artifact@v4
         with:
           name: zvmsdk-deb-tarball
