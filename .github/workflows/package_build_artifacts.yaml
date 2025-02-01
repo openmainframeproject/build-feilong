@@ -7,6 +7,9 @@ on:
   repository_dispatch:
     types: [obs-package]
 
+permissions:
+  contents: write
+  
 jobs:
   zthin_tarball:
     runs-on: ubuntu-latest
