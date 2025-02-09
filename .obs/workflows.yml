@@ -5,10 +5,20 @@ workflow:
     - trigger_services:
         project: Virtualization:feilong
         package: zthin_deb
+    - trigger_services:
+        project: Virtualization:feilong
         package: zthin_rhel
+    - trigger_services:
+        project: Virtualization:feilong
         package: zthin_sles
+    - trigger_services:
+        project: Virtualization:feilong
         package: zvmsdk_deb
+    - trigger_services:
+        project: Virtualization:feilong
         package: zvmsdk_rhel
+    - trigger_services:
+        project: Virtualization:feilong
         package: zvmsdk_sles
   filters:
     branches:
