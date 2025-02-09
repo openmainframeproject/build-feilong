@@ -61,7 +61,7 @@ jobs:
       - name: Set up dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y debhelper dh-make dh-python python3-all
+          sudo apt-get install -y debhelper dh-make dh-python python3-all build-essential:native libtirpc-dev
       
       - name: Make buildzthin_deb_tar executable
         run: chmod +x ./.github/buildzthin_deb_tar
@@ -89,7 +89,7 @@ jobs:
       - name: Set up dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y debhelper dh-make dh-python python3-all
+          sudo apt-get install -y debhelper dh-make dh-python python3-all build-essential:native libtirpc-dev
       - name: Make buildzvmsdk_deb_tar executable
         run: chmod +x ./.github/buildzvmsdk_deb_tar
 
