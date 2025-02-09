@@ -13,5 +13,5 @@ workflow:
   filters:
     branches:
       only:
-        - master
+        - main
     event: push
