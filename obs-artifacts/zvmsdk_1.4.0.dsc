@@ -4,7 +4,7 @@ Binary: zvmsdk
 Architecture: all
 Version: 1.4.0
 Maintainer: jichen <jichenjc@cn.ibm.com>
-Homepage: http://cloudlib4zvm.readthedocs.io
+Homepage: http://feilong.readthedocs.io
 Standards-Version: 3.12.3
 Build-Depends: debhelper (>= 12), dh-python, python3-all, python3-setuptools
 Package-List:

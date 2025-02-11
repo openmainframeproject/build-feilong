@@ -10,7 +10,7 @@
 build-feilong contains the necessary components to build distribution packages for [Feilong](https://github.com/openmainframeproject/feilong).
 
 ## Documentation
-Please refer to [Documentation of Feilong](https://cloudlib4zvm.readthedocs.io/en/latest/index.html).
+Please refer to [Documentation of Feilong](https://feilong.readthedocs.io/en/latest/index.html).
 
 ## License
 This package is licensed under the [Apache 2.0 License](LICENSE)
