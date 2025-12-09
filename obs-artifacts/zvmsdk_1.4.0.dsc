@@ -10,8 +10,8 @@ Build-Depends: debhelper (>= 12), dh-python, python3-all, python3-setuptools
 Package-List:
  zvmsdk deb libs optional arch=all
 Checksums-Sha1:
- 864c231755848f65dd17ab46bcbede8218e4c2ca 10680082 zvmsdk_1.4.0.tar.gz
+ 364cc6cdc6b8102892f2ed94684483165b2c9e22 10682270 zvmsdk_1.4.0.tar.gz
 Checksums-Sha256:
- 6f886af6bbc7f886ffbaf11ac042f80106ea9733cfdb6484bb27f973bfcb9685 10680082 zvmsdk_1.4.0.tar.gz
+ 26f78073f25d1aa441cd4c4d776ed73cddd990d60a05d0cf4a30a63a9f191ecd 10682270 zvmsdk_1.4.0.tar.gz
 Files:
- 8b02f5da6b458878fc547111ffae224c 10680082 zvmsdk_1.4.0.tar.gz
+ 88b6787cd2337593dabff6ba7cce3245 10682270 zvmsdk_1.4.0.tar.gz
