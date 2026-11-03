@@ -101,8 +101,8 @@ jobs:
         with:
           name: zvmsdk-deb-tarball
           path: |
-            zvmsdk_1.4.0.dsc
-            zvmsdk_1.4.0.tar.gz
+            zvmsdk_*.dsc
+            zvmsdk_*.tar.gz
           compression-level: 0
 
   push_artifacts:

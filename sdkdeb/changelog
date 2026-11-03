@@ -1,3 +1,9 @@
+zvmsdk (1.6.7~pre) stable; urgency=medium
+
+  * Update to Feilong 1.6.7~pre
+
+ -- Eric Bischoff <ebischoff@suse.com>  Tue, 03 Nov 2026 18:52:22 +0100
+
 zvmsdk (1.4.0) stable; urgency=medium
 
   * Bug fix

@@ -4,7 +4,7 @@
 
 Summary: IBM z/VM cloud connector
 Name: %{name}
-Version: 1.4.0
+Version: 1.6.7~pre
 Release: 1
 Source: zvmsdk.tar.gz
 Vendor: IBM
