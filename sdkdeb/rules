@@ -23,6 +23,7 @@ override_dh_install:
 	PYTHONPATH=$(CURDIR)/debian/tmp/usr/lib/python3.12/dist-packages
 	mkdir -p $(CURDIR)/debian/zvmsdk/var/opt/zvmsdk
 	cp zvmsdklogs $(CURDIR)/debian/zvmsdk/var/opt/zvmsdk/
+	cp data/sudoers-zvmsdk $(CURDIR)/debian/zvmsdk/var/opt/zvmsdk/
 	mkdir -p $(CURDIR)/debian/zvmsdk/etc/apache2/sites-available/
 	cp vhost_deb.config $(CURDIR)/debian/zvmsdk/etc/apache2/sites-available/zvmsdk.conf
 
