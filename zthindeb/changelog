@@ -1,3 +1,9 @@
+zthin (3.2.0~pre) stable; urgency=medium
+
+  * Update to zthin 3.2.0~pre
+
+ -- Eric Bischoff <eric.bischoff.fr@gmail.com>  Wed, 04 Nov 2026 03:25:39 +0100
+
 zthin (3.1.2) stable; urgency=medium
 
   * Bug fix
