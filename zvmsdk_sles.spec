@@ -1,10 +1,10 @@
-## Copyright 2024 Contributors to the Open Mainframe Project.
+## Copyright 2024,2026 Contributors to the Open Mainframe Project.
 
 %define name zvmsdk
 
 Summary: IBM z/VM cloud connector
 Name: %{name}
-Version: 1.6.7~pre
+Version: 1.6.7~pre2
 Release: 1
 Source: zvmsdk.tar.gz
 Vendor: IBM
