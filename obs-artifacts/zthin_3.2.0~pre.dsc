@@ -10,8 +10,8 @@ Build-Depends: libtirpc-dev, debhelper (>= 12), dh-python, dh-make, python3-setu
 Package-List:
  zthin deb libs optional arch=s390x
 Checksums-Sha1:
- 2a016f934e73d20db2d4b4d1458c354a0cd38273 305856 zthin_3.2.0~pre.tar.gz
+ 2767e445d97e6e1b97228aea40543d07b99ae96c 305854 zthin_3.2.0~pre.tar.gz
 Checksums-Sha256:
- cc1a60943d980313dc00fedcafd820574d1fb79ca6499c4b3056dd40153a1cb5 305856 zthin_3.2.0~pre.tar.gz
+ c2d4e59faf0976fcef9096661da13c0ce4dbae2873f545b24d1af44b533002de 305854 zthin_3.2.0~pre.tar.gz
 Files:
- ab103e8bceefd98f5b0c593364a0c30e 305856 zthin_3.2.0~pre.tar.gz
+ 2fd1b1c9c18c1a52ec2c2b4efa56533b 305854 zthin_3.2.0~pre.tar.gz
