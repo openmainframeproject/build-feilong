@@ -74,8 +74,8 @@ jobs:
         with:
           name: zthin-deb-tarball
           path: |
-            feilong/zthin_3.1.2.tar.gz
-            feilong/zthin_3.1.2.dsc
+            feilong/zthin_3.2.0~pre.tar.gz
+            feilong/zthin_3.2.0~pre.dsc
           compression-level: 0
 
   zvmsdk_deb_tarball:
