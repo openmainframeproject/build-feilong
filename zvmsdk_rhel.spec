@@ -87,5 +87,20 @@ else
 fi
 
 %postun
-/usr/bin/getent passwd zvmsdk >/dev/null && userdel zvmsdk 2>/dev/null 1>&2
-rm -fr /etc/logrotate.d/zvmsdklogs
+# On upgrade, this scriptlet of the old version runs after the post
+# scriptlet of the new version: only clean up when the package is erased
+if [ $1 -eq 0 ]; then
+    /usr/bin/getent passwd zvmsdk >/dev/null && userdel zvmsdk 2>/dev/null 1>&2 || :
+    rm -f /etc/logrotate.d/zvmsdklogs
+fi
+
+%posttrans
+# The postun scriptlet of older versions deleted the zvmsdk user and the
+# logrotate configuration on upgrade (build-feilong#15)
+if ! /usr/bin/getent passwd zvmsdk >/dev/null; then
+    /usr/sbin/useradd -r -d /var/lib/zvmsdk -m -U zvmsdk -s /bin/bash 2>/dev/null 1>&2
+    chown -R zvmsdk:zvmsdk /etc/zvmsdk /var/log/zvmsdk /var/opt/zvmsdk /var/lib/zvmsdk
+fi
+if [ ! -f "/etc/logrotate.d/zvmsdklogs" ]; then
+    cp /var/opt/zvmsdk/zvmsdklogs /etc/logrotate.d
+fi
