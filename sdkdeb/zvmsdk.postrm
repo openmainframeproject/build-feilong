@@ -2,9 +2,17 @@
 
 set -e
 
-# need add echo 0 because sometime service still running, need make $? to be 0
-/usr/bin/getent passwd zvmsdk >/dev/null && userdel zvmsdk 2>/dev/null 1>&2 || echo 0 > /dev/null
+# On upgrade, this script runs after the files of the new version have been
+# unpacked: only clean up when the package is really removed or purged.
+# /etc/sudoers.d/sudoers-zvmsdk is a conffile shipped by the package, dpkg
+# deletes it on purge.
+case "$1" in
+    remove|purge)
+        rm -f /etc/logrotate.d/zvmsdklogs
+        ;;
+esac
 
-rm -fr /etc/logrotate.d/zvmsdklogs
-
-rm -fr /etc/sudoers.d/sudoers-zvmsdk
+if [ "$1" = "purge" ]; then
+    # need add echo 0 because sometime service still running, need make $? to be 0
+    /usr/bin/getent passwd zvmsdk >/dev/null && userdel zvmsdk 2>/dev/null 1>&2 || echo 0 > /dev/null
+fi

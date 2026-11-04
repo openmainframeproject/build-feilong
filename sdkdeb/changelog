@@ -1,3 +1,9 @@
+zvmsdk (1.6.7~pre2) stable; urgency=medium
+
+  * Do not remove the sudoers file and the zvmsdk user on upgrades (#15)
+
+ -- Eric Bischoff <eric.bischoff.fr@gmail.com>  Wed, 04 Nov 2026 10:19:48 +0100
+
 zvmsdk (1.6.7~pre) stable; urgency=medium
 
   * Update to Feilong 1.6.7~pre

@@ -2,7 +2,12 @@
 
 set -e
 
-rm -fr /etc/logrotate.d/zthinlogs
-rm -fr /etc/ld.so.conf.d/zthin.conf
-rm -fr /usr/bin/smcli
-
+# On upgrade, this script runs after the files of the new version have been
+# unpacked: only clean up when the package is really removed or purged.
+case "$1" in
+    remove|purge)
+        rm -f /etc/logrotate.d/zthinlogs
+        rm -f /etc/ld.so.conf.d/zthin.conf
+        rm -f /usr/bin/smcli
+        ;;
+esac

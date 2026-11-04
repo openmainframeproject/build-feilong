@@ -25,6 +25,12 @@ chgrp zvmsdk /var/lib/zvmsdk/setupDisk
 chown zvmsdk /etc/zvmsdk/*
 chgrp zvmsdk /etc/zvmsdk/*
 
+# The postrm of older versions deleted the sudoers file on upgrade
+# (build-feilong#15), and dpkg does not restore a deleted conffile
+if [ ! -f "/etc/sudoers.d/sudoers-zvmsdk" ]; then
+    install -m 0440 -o root -g root /var/opt/zvmsdk/sudoers-zvmsdk /etc/sudoers.d/sudoers-zvmsdk
+fi
+
 if [ ! -f "/etc/logrotate.d/zvmsdklogs" ]; then
     cp /var/opt/zvmsdk/zvmsdklogs /etc/logrotate.d
 fi
